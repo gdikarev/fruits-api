@@ -1,0 +1,28 @@
+api_platform:
+    path_segment_name_generator: api_platform.path_segment_name_generator.dash
+    enable_swagger_ui: true
+    title: Fruits api
+    version: 0.10.0
+    formats:
+        json:
+            mime_types: ['application/json']
+        html:
+            mime_types: ['text/html']
+        form:
+            mime_types: [ 'multipart/form-data' ]
+    error_formats:
+        jsonproblem:
+            mime_types: ['application/problem+json']
+    allow_plain_identifiers: false
+    collection:
+        pagination:
+            client_enabled: true
+            client_items_per_page: true
+            client_partial: true
+            items_per_page_parameter_name: per_page
+    mapping:
+        paths:
+            - '%kernel.project_dir%/config/api_platform/'
+    swagger:
+        versions:
+            - 3

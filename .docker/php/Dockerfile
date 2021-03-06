@@ -14,5 +14,5 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         pdo pdo_mysql
 
 RUN curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer
-COPY symfony/ /var/www/symfony
+COPY app/ /var/www/symfony
 WORKDIR /var/www/symfony

@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: .docker/nginx/Dockerfile
     volumes:
-      - ./symfony:/var/www/symfony/
+      - ./app:/var/www/symfony/
     ports:
       - '8001:80'
     networks:
@@ -21,7 +21,7 @@ services:
       APP_ENV: dev
       DATABASE_URL: mysql://user:password@mysql:3306/fruits_db?serverVersion=5.7
     volumes:
-      - ./symfony/:/var/www/symfony/
+      - ./app/:/var/www/symfony/
     networks:
       - symfony
     depends_on:
