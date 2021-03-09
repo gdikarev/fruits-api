@@ -7,21 +7,16 @@ use App\Entity\Basket;
 use App\Entity\Item;
 use App\EventListener\PostValidateTransformListener;
 use App\Repository\BasketRepository;
-use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Symfony\Component\HttpFoundation\Request;
 
 class ItemPost extends PostValidateTransformListener
 {
-    private EntityManagerInterface $entityManager;
-
     private BasketRepository $basketRepository;
 
     public function __construct(
-        EntityManagerInterface $entityManager,
         BasketRepository $basketRepository
     ) {
-        $this->entityManager = $entityManager;
         $this->basketRepository = $basketRepository;
     }
 

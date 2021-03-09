@@ -11,14 +11,6 @@ use Symfony\Component\HttpFoundation\Request;
 
 class BasketPost extends PostValidateTransformListener
 {
-    private EntityManagerInterface $entityManager;
-
-    public function __construct(
-        EntityManagerInterface $entityManager
-    ) {
-        $this->entityManager = $entityManager;
-    }
-
     /**
      * @param BasketDTO $payload
      * @param string    $method

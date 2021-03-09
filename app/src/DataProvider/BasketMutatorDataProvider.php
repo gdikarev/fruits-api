@@ -15,18 +15,15 @@ use Symfony\Component\HttpFoundation\RequestStack;
 class BasketMutatorDataProvider
     implements ItemDataProviderInterface, RestrictedDataProviderInterface
 {
-    private ?Request $request;
 
     private AfterReadStorage $afterReadStorage;
 
     private BasketRepository $basketRepository;
 
     public function __construct(
-        RequestStack $requestStack,
         BasketRepository $basketRepository,
         AfterReadStorage $afterReadStorage
     ) {
-        $this->request = $requestStack->getCurrentRequest();
         $this->afterReadStorage = $afterReadStorage;
         $this->basketRepository = $basketRepository;
     }
