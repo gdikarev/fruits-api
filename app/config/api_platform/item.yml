@@ -1,7 +1,7 @@
 App\Entity\Item:
   attributes:
     formats: [ 'json' ]
-    output: App\DTO\ItemOutput
+    output: App\DTO\Item\ItemOutput
     normalization_context:
       groups: [ 'item:read' ]
     denormalization_context:
@@ -11,18 +11,39 @@ App\Entity\Item:
       identifier: true
   itemOperations:
     get:
-      path: /item/{id}
+      path: /items/{id}
+      openapi_context:
+        tags:
+          - Item
+    delete:
+      path: /items/{id}
       swagger_context:
         tags:
           - Item
-#    delete:
-#      path: /item/{id}
-#      swagger_context:
-#        tags:
-#          - Item
   collectionOperations:
     get:
-      path: /item
+      path: /items
+      openapi_context:
+        tags:
+          - Item
+
+App\DTO\Item\Item:
+  attributes:
+    formats: ['json']
+    output: App\DTO\Item\ItemOutput
+    normalization_context:
+      groups: ['item:read']
+    denormalization_context:
+      groups: ['item:write']
+  properties:
+    id:
+      identifier: true
+  itemOperations: []
+  collectionOperations:
+    post:
+      path: /items
+      denormalization_context:
+        groups: ['item:write']
       openapi_context:
         tags:
           - Item

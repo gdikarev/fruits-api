@@ -2,10 +2,13 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Uid\Ulid;
 
 /**
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="App\Repository\BasketRepository")
  */
 class Basket
 {
@@ -17,9 +20,9 @@ class Basket
     protected int $id;
 
     /**
-     * @ORM\Column(type="string", length=36, unique=true)
+     * @ORM\Column(type="ulid", unique=true)
      */
-    protected $uuid;
+    protected Ulid $ulid;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -31,12 +34,25 @@ class Basket
      */
     protected float $maxCapacity;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Item", mappedBy="basket", cascade={"persist", "remove"}, orphanRemoval=true)
+     */
+    protected Collection $items;
+
     public function __construct(
         string $name,
-        float $maxCapacity = 0.0
+        float $maxCapacity
     ) {
+        $this->ulid = new Ulid();
+        $this->items = new ArrayCollection();
         $this->name = $name;
         $this->maxCapacity = $maxCapacity;
+    }
+
+    public function update(
+        string $name
+    ) {
+        $this->name = $name;
     }
 
     public function getId(): int
@@ -44,9 +60,9 @@ class Basket
         return $this->id;
     }
 
-    public function getUuid(): string
+    public function getUlid(): Ulid
     {
-        return $this->uuid;
+        return $this->ulid;
     }
 
     public function getName(): string
@@ -57,5 +73,10 @@ class Basket
     public function getMaxCapacity(): float
     {
         return $this->maxCapacity;
+    }
+
+    public function getItems(): Collection
+    {
+        return $this->items;
     }
 }

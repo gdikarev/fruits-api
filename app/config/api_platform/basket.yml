@@ -1,0 +1,67 @@
+App\Entity\Basket:
+  attributes:
+    formats: [ 'json' ]
+    output: App\DTO\Basket\BasketOutput
+    normalization_context:
+      groups: [ 'basket:read', 'item:read' ]
+    denormalization_context:
+      groups: [ ]
+  properties:
+    id:
+      identifier: true
+  itemOperations:
+    get:
+      path: /baskets/{id}
+      openapi_context:
+        tags:
+          - Basket
+    delete:
+      path: /baskets/{id}
+      swagger_context:
+        tags:
+          - Basket
+  collectionOperations:
+    get:
+      path: /baskets
+      openapi_context:
+        tags:
+          - Basket
+
+App\DTO\Basket\Basket:
+  attributes:
+    formats: ['json']
+    output: App\DTO\Basket\BasketOutput
+    normalization_context:
+      groups: ['basket:read', 'item:read']
+    denormalization_context:
+      groups: ['basket:write']
+  properties:
+    id:
+      identifier: true
+  itemOperations:
+    put:
+      path: /baskets/{id}
+      denormalization_context:
+        groups: ['basket:update']
+      validation_groups:
+        - update
+      openapi_context:
+        tags:
+          - Basket
+        parameters:
+          - name: id
+            in: path
+            required: true
+            schema:
+              type: string
+
+  collectionOperations:
+    post:
+      path: /baskets
+      denormalization_context:
+        groups: ['basket:write']
+      validation_groups:
+        - write
+      openapi_context:
+        tags:
+          - Basket

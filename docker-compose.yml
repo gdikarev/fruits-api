@@ -8,7 +8,7 @@ services:
     volumes:
       - ./app:/var/www/symfony/
     ports:
-      - '8001:80'
+      - '8003:80'
     networks:
       - symfony
     depends_on:
@@ -18,7 +18,7 @@ services:
       context: .
       dockerfile: .docker/php/Dockerfile
     environment:
-      APP_ENV: dev
+      APP_ENV: test
       DATABASE_URL: mysql://user:password@mysql:3306/fruits_db?serverVersion=5.7
     volumes:
       - ./app/:/var/www/symfony/
@@ -35,7 +35,7 @@ services:
       MYSQL_PASSWORD: password
       MYSQL_ROOT_PASSWORD: root
     ports:
-      - '3306:3306'
+      - '3309:3306'
 #    volumes:
 #      - ./mysql:/var/lib/mysql
     networks:

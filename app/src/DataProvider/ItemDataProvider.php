@@ -6,35 +6,33 @@ namespace App\DataProvider;
 use ApiPlatform\Core\DataProvider\ContextAwareCollectionDataProviderInterface;
 use ApiPlatform\Core\DataProvider\ItemDataProviderInterface;
 use ApiPlatform\Core\DataProvider\RestrictedDataProviderInterface;
-use App\Entity\FamilyCardReport;
-use App\Service\Manager\FamilyCardReportManager;
-use Symfony\Component\HttpFoundation\Request;
+use App\Entity\Item;
+use App\Service\Manager\ItemManager;
 
-class FamilyCardReportDataProvider implements
+class ItemDataProvider implements
     ItemDataProviderInterface,
     ContextAwareCollectionDataProviderInterface,
     RestrictedDataProviderInterface
 {
-    private $familyCardReportManager;
+    private ItemManager $itemManager;
 
-    public function __construct(FamilyCardReportManager $familyCardReportManager)
+    public function __construct(ItemManager $itemManager)
     {
-        $this->familyCardReportManager = $familyCardReportManager;
+        $this->itemManager = $itemManager;
     }
 
     public function supports(string $resourceClass, string $operationName = null, array $context = []): bool
     {
-        return $resourceClass === FamilyCardReport::class
-            && strtoupper((string)$operationName) === Request::METHOD_GET;
+        return $resourceClass === Item::class;
     }
 
     public function getItem(string $resourceClass, $id, string $operationName = null, array $context = [])
     {
-        return $this->familyCardReportManager->getFamilyCardReportForDataProvider(...func_get_args());
+        return $this->itemManager->getItemForDataProvider(...func_get_args());
     }
 
     public function getCollection(string $resourceClass, string $operationName = null, array $context = [])
     {
-        return $this->familyCardReportManager->getFamilyCardReportsForDataProvider(...func_get_args());
+        return $this->itemManager->getItemsForDataProvider(...func_get_args());
     }
 }
