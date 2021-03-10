@@ -50,7 +50,7 @@ class BasketRepository extends ServiceEntityRepository
         ;
 
         try {
-            return $qb->getQuery()->getSingleScalarResult();
+            return $qb->getQuery()->getSingleScalarResult() ?? 0.0;
         } catch (NoResultException | NonUniqueResultException $e) {
             return 0.0;
         }
