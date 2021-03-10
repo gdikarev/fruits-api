@@ -33,6 +33,11 @@ class WeightValidator extends ConstraintValidator implements ServiceSubscriberIn
 
         /** @var Basket $basket */
         $basket = $this->basketRepository()->findOneByUlid($value->basketId);
+
+        if (!$basket) {
+            return;
+        }
+
         $currentBasketWeight = $this->basketRepository()->sumWeight($value->basketId);
 
         if ($value->weight + $currentBasketWeight > $basket->getMaxCapacity()) {
